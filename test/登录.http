@@ -1,0 +1,8 @@
+POST http://localhost:7003/api/accounts/login
+Client-Info: Mobile
+Content-Type: application/json
+
+{
+    "passWord": "615bacc7f5c37188391a971cb8efadcc",
+    "userName": "zhangyu"
+}

@@ -1,0 +1,5 @@
+
+GET  http://127.0.0.1:7003/api/posts/index?page=1&size=10
+Client-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1dWVjNDE1YmUwNTJmMTQzZjA4Nzk4OWEyMDEyYTliZmNlIiwidXNlck5hbWUiOiJ6aGFuZ3l1IiwiaWF0IjoxNjA4NjI5NTU1LCJleHAiOjE2MDkyMzQzNTV9._g-O7UbGJywZE6ltUgoI_sNHhpVD9hky066fMUMJqdI
+Client-Uid: uu1c5467ade6a142b593646cb1dcfecbe5
+Content-Type: application/json
