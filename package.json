@@ -46,10 +46,10 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-api.diamond2221.com.diamond --framework=@midwayjs/web",
+    "start": "egg-scripts start --daemon --port=7003 --title=egg-server-api.diamond2221.com.diamond --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=egg-server-api.diamond2221.com.diamond",
     "start_build": "npm run build && cross-env NODE_ENV=development midway-bin dev",
-    "dev": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts",
+    "dev": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts --port=7003",
     "test": "midway-bin test",
     "cov": "midway-bin cov",
     "lint": "mwts check",

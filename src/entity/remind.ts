@@ -6,39 +6,61 @@ import { ERemindStatus } from '../enums/remind';
 export class Remind {
   @PrimaryGeneratedColumn({
     type: 'int',
-    comment: '帖子id 唯一',
-    name: 'post_id',
+    comment: '提醒id 唯一',
+    name: 'id',
   })
-  public postId: number;
+  public id: number;
+
+  @Column({
+    type: 'int',
+    comment: '关联时间枚举表的id',
+    name: 'time_id',
+  })
+  public timeId: number;
+
+  @Column({
+    type: 'int',
+    comment: '关联药品枚举表的id',
+    name: 'medicine_id',
+  })
+  public medicineId: number;
 
   @Column({
     type: 'varchar',
-    comment: '关联用户的id',
-    name: 'user_id',
+    comment: '备注内容',
+    name: 'remark',
   })
-  public userId: string;
+  public remark: string;
 
-  @Column({
-    type: 'varchar',
-    comment: '发帖时的文本内容',
-    name: 'content',
-  })
-  public content: string;
   @Column({
     type: 'int',
     comment: `
-        该帖子的状态:
-        1: 所有人可见
-        2: 仅自己可见
-        3: 所有人不可见（被删除）
+        是否已经滴了药:
+        1: 已滴
+        0: 未滴
     `,
     name: 'status',
   })
   public status: ERemindStatus;
+
   @Column({
-    type: 'varchar',
+    type: 'date',
+    comment: '属于哪天的提醒',
+    name: 'date',
+  })
+  public date: Date;
+
+  @Column({
+    type: 'datetime',
     comment: '发帖的时间戳',
     name: 'add_time',
   })
-  public addTime: string; // date
+  public addTime: Date;
+
+  @Column({
+    type: 'datetime',
+    comment: '发帖的时间戳',
+    name: 'update_time',
+  })
+  public updateTime: Date;
 }

@@ -1,8 +1,8 @@
 /*
  * @Author: ZhangYu
  * @Date:   2018-12-29 14:54:27
- * @Last Modified by: zhangyu
- * @Last Modified time: 2021-03-23 16:59:24
+ * @Last Modified by: ZhangYù
+ * @Last Modified time: 2022-02-01 23:45:19
  */
 
 export const timestampToTime = (timestamp: number | string): string => {
@@ -158,4 +158,40 @@ export function getNDay(n: number): number {
   const day = new Date(now - 60 * 60 * 24 * n * 1000);
   day.setHours(0, 0, 0, 0);
   return day.getTime();
+}
+
+/**
+ * @description 对数组进行冒泡排序
+ * @author ZhangYu
+ * @date 01/02/2022
+ * @export
+ * @param {any[]} arr
+ * @param {(-1 | 1)} [dir=1]  (-1) 降序（从大到小） 1 升序（从小到大）
+ * @param {(string | number)} [sortKey='sort'] 排序值
+ * @return {*}  {any[]}
+ */
+export function bubbleSort<
+  T extends { [key in K]: any },
+  K extends string | number = 'sort'
+>(arr: T[], dir: -1 | 1 = 1, sortKey: K = 'sort' as K): T[] {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (dir === 1) {
+        if (+arr[i][sortKey] >= +arr[j][sortKey]) {
+          // 如果前面的数据比后面的大就交换
+          const temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+      } else if (dir === -1) {
+        if (+arr[i][sortKey] <= +arr[j][sortKey]) {
+          // 如果前面的数据比后面的大就交换
+          const temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+      }
+    }
+  }
+  return arr;
 }

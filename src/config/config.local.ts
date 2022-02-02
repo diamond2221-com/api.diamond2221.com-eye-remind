@@ -6,16 +6,16 @@ const redisStore = require('cache-manager-ioredis');
 export default (): DefaultConfig => {
   const config = {} as DefaultConfig;
 
-  // config.orm = {
-  //   type: 'mysql',
-  //   host: '127.0.0.1',
-  //   port: 3306,
-  //   username: 'root',
-  //   password: '981220zy',
-  //   database: 'db_eye_remind',
-  //   synchronize: false,
-  //   logging: true,
-  // };
+  config.orm = {
+    type: 'mysql',
+    host: '127.0.0.1',
+    port: 3306,
+    username: 'root',
+    password: '981220Zy',
+    database: 'db_eye_remind',
+    synchronize: false,
+    logging: true,
+  };
 
   // config.cache = {
   //   store: redisStore,
@@ -29,6 +29,5 @@ export default (): DefaultConfig => {
   //   },
   // };
 
-  config.PrefixV1Url = '/EYEREMIND';
   return config;
 };
