@@ -1,5 +1,4 @@
 import { Remind } from './../entity/remind';
-import { ERemindStatus } from '../enums/remind';
 
 export enum EColumnType {
   'text' = 1,
@@ -14,12 +13,13 @@ export interface Column {
 }
 export interface RemindItem {
   name: string;
-  [key: string]: Remind | string;
+  medicineId: number;
+  [key: string]: Remind | string | number;
 }
 
 export interface UseStatusResponse {
   columns: Column[];
-  list: RemindItem[];
+  rows: RemindItem[];
   pageInfo: {
     pageHeader: string;
     startWeek: string;
@@ -27,3 +27,11 @@ export interface UseStatusResponse {
     week: string;
   };
 }
+
+/**
+ * 设置药品时间
+ */
+export type SetRemindData = Pick<
+  Remind,
+  'timeId' | 'medicineId' | 'status' | 'date'
+>;

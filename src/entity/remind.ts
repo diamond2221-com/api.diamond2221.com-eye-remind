@@ -1,6 +1,6 @@
 import { EntityModel } from '@midwayjs/orm';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
-import { ERemindStatus } from '../enums/remind';
+import { EIsDel, ERemindStatus } from '../enums/remind';
 
 @EntityModel('tbl_remind')
 export class Remind {
@@ -49,6 +49,17 @@ export class Remind {
     name: 'date',
   })
   public date: Date;
+
+  @Column({
+    type: 'int',
+    comment: `
+        是否被删除:
+        1: 未被删除
+        0: 被删除
+    `,
+    name: 'is_del',
+  })
+  public isDel: EIsDel;
 
   @Column({
     type: 'datetime',
