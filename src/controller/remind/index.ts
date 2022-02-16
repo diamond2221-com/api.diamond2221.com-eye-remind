@@ -1,4 +1,3 @@
-import { UseStatusResponse } from './../../types/remind_interface';
 import { RemindChangeDTO, RemindSetDTO } from './../../dto/remind';
 import { ResponseMessage } from './../../utils/response';
 import {
@@ -14,7 +13,6 @@ import {
   Query,
   Validate,
 } from '@midwayjs/decorator';
-import { ContextUtil } from '../../extend/context';
 import { RemindService } from '../../service/remind';
 import { EResponse } from '../../enums/response';
 import { RemindDTO } from '../../dto/remind';
