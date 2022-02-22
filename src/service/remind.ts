@@ -63,7 +63,10 @@ export class RemindService {
   public async setRemindYesById(id: number) {
     return await this.remindModel.update(
       { id },
-      { status: ERemindStatus['yes'] }
+      {
+        status: ERemindStatus['yes'],
+        remark: `${parseTime(new Date(), '{h}点{i}分')}点的药`,
+      }
     );
   }
 
