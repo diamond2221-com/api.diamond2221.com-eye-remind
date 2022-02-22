@@ -61,20 +61,24 @@ export class RemindService {
   }
 
   public async setRemindYesById(id: number) {
-    return await this.remindModel.update(
-      { id },
-      {
-        status: ERemindStatus['yes'],
-        remark: `${parseTime(new Date(), '{h}点{i}分')}点的药`,
-      }
-    );
+    const remind = await this.remindModel.findOne(id);
+    if (remind) {
+      remind.status = ERemindStatus['yes'];
+      remind.remark = `${parseTime(new Date(), '{h}点{i}分')}点的药`;
+      await this.remindModel.save(remind);
+    }
+    return;
   }
 
   public async setRemindNoById(id: number) {
-    return await this.remindModel.update(
-      { id },
-      { status: ERemindStatus['no'] }
-    );
+    const remind = await this.remindModel.findOne(id);
+
+    if (remind) {
+      remind.status = ERemindStatus['no'];
+      remind.remark = '';
+      await this.remindModel.save(remind);
+    }
+    return;
   }
 
   public async getAllMedicine() {
@@ -195,6 +199,8 @@ export class RemindService {
   }
 
   public async getConfigByDate(date: Date, all = false) {
+    console.log(this.ctx);
+
     const result: UseStatusResponse = {
       columns: await this.getColumns(date, all),
       rows: await this.getRows(date, all),
