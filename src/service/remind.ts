@@ -199,8 +199,6 @@ export class RemindService {
   }
 
   public async getConfigByDate(date: Date, all = false) {
-    console.log(this.ctx);
-
     const result: UseStatusResponse = {
       columns: await this.getColumns(date, all),
       rows: await this.getRows(date, all),
