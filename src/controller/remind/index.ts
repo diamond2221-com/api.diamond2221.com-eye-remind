@@ -55,8 +55,10 @@ export class RemindController {
   @Put('/yes/:id')
   @Validate()
   public async setRemindYesDrop(@Param(ALL) params: RemindChangeDTO) {
-    await this.remindService.setRemindYesById(params.id);
-    return new ResponseMessage(EResponse['SUCCESS']);
+    return new ResponseMessage(
+      EResponse['SUCCESS'],
+      await this.remindService.setRemindYesById(params.id)
+    );
   }
 
   @Post('/set')

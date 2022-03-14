@@ -71,10 +71,9 @@ export class RemindService {
     const remind = await this.remindModel.findOne(id);
     if (remind) {
       remind.status = ERemindStatus['yes'];
-      remind.remark = `${parseTime(new Date(), '{h}点{i}分')}点的药`;
-      await this.remindModel.save(remind);
+      remind.remark = `${parseTime(new Date(), '{h}点{i}分')}`;
+      return await this.remindModel.save(remind);
     }
-    return;
   }
 
   public async setRemindNoById(id: number) {
