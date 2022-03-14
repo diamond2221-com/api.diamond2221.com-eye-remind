@@ -15,6 +15,8 @@ import { EIsDel, ERemindStatus } from '../enums/remind';
 import { Column } from '../types/remind_interface';
 import { parseTime } from '../utils/date';
 import { bubbleSort } from '../utils/common';
+import { EResponse } from '../enums/response';
+import { ResponseMessage } from '../utils/response';
 
 @Provide()
 export class RemindService {
@@ -30,13 +32,18 @@ export class RemindService {
   @InjectEntityModel(MedicineEnum)
   private medicineEnumModel: Repository<MedicineEnum>;
 
-  public async getRemindsByDate(date: Date) {
+  private async getReminds(date: Date) {
     const reminds = await this.remindModel.find({
       where: {
-        date: date.toLocaleDateString(),
+        date: date.toLocaleDateString('zh'),
         isDel: EIsDel['unDel'],
       },
     });
+    return reminds;
+  }
+
+  public async getRemindsByDate(date: Date) {
+    const reminds = await this.getReminds(date);
     const results: (Remind & { medicine?: MedicineEnum; time?: TimeEnum })[] =
       [];
     for (let i = 0; i < reminds.length; i++) {
@@ -235,5 +242,38 @@ export class RemindService {
       await this.remindModel.save(remind);
     }
     return;
+  }
+
+  /**
+   * @description
+   * @author ZhangYù
+   * @date 14/03/2022
+   * @param {Date} date1 被复制的当天日期
+   * @param {Date} date2 将要复制到某一天的日期
+   * @return {*}  {Promise<ResponseMessage<Remind[]>>}
+   * @memberof RemindService
+   */
+  public async copyDayRemind(
+    date1: Date,
+    date2: Date
+  ): Promise<ResponseMessage<Remind[]>> {
+    if (date1.toLocaleDateString('zh') === date2.toLocaleDateString('zh')) {
+      return new ResponseMessage(
+        EResponse['ERROR'],
+        null,
+        '两个日期不可以相同'
+      );
+    }
+    const reminds = await this.getReminds(date1);
+    reminds.forEach(v => {
+      delete v.id;
+      v.status = ERemindStatus['no'];
+      v.remark = '';
+      v.date = date2;
+      v.addTime = new Date();
+      v.updateTime = new Date();
+    });
+    const res = await this.remindModel.save(reminds);
+    return new ResponseMessage(EResponse['SUCCESS'], res);
   }
 }

@@ -1,4 +1,8 @@
-import { RemindChangeDTO, RemindSetDTO } from './../../dto/remind';
+import {
+  RemindChangeDTO,
+  RemindSetDTO,
+  RemindCopyDTO,
+} from './../../dto/remind';
 import { ResponseMessage } from './../../utils/response';
 import {
   ALL,
@@ -60,5 +64,11 @@ export class RemindController {
   public async setRemind(@Body(ALL) body: RemindSetDTO) {
     await this.remindService.setRemind(body);
     return new ResponseMessage(EResponse['SUCCESS']);
+  }
+
+  @Post('/copy')
+  @Validate()
+  public async copyRemind(@Body(ALL) body: RemindCopyDTO) {
+    return await this.remindService.copyDayRemind(body.date1, body.date2);
   }
 }

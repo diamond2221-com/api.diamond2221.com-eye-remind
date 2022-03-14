@@ -4,7 +4,6 @@ import { ILifeCycle } from '@midwayjs/core';
 import { Application } from 'egg';
 import * as orm from '@midwayjs/orm';
 import * as swagger from '@midwayjs/swagger';
-import * as cache from '@midwayjs/cache'; // 导入cacheComponent模块
 import { ContextUtil } from './extend/context';
 
 @Configuration({

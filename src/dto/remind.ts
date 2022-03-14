@@ -27,3 +27,11 @@ export class RemindSetDTO
   @Rule(NumberRequired)
   status: ERemindStatus;
 }
+
+export class RemindCopyDTO {
+  @Rule(RuleType.date().required())
+  date1: Date;
+
+  @Rule(RuleType.date().required())
+  date2: Date;
+}
