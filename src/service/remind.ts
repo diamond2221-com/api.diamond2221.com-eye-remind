@@ -214,14 +214,15 @@ export class RemindService {
     return result;
   }
 
-  public async setRemind(data: SetRemindData): Promise<void> {
+  public async setRemind(data: SetRemindData): Promise<Remind> {
     const remind: void | Remind = await this.remindModel.findOne({
       where: {
         timeId: data.timeId,
         medicineId: data.medicineId,
-        date: data.date.toLocaleDateString(),
+        date: data.date.toLocaleDateString('zh'),
       },
     });
+    let res: Remind;
     if (data.status === ERemindStatus['yes'] && !remind) {
       const model = new Remind();
       model.timeId = data.timeId;
@@ -230,17 +231,21 @@ export class RemindService {
       model.status = ERemindStatus['no'];
       model.addTime = new Date();
       model.updateTime = new Date();
-      await this.remindModel.save(model);
+      res = await this.remindModel.save(model);
     }
     if (data.status === ERemindStatus['yes'] && remind) {
       remind.isDel = EIsDel['unDel'];
-      await this.remindModel.save(remind);
+      res = await this.remindModel.save(remind);
     }
     if (data.status === ERemindStatus['no'] && remind) {
       remind.isDel = EIsDel['del'];
-      await this.remindModel.save(remind);
+      res = await this.remindModel.save(remind);
     }
-    return;
+    if (res) {
+      res.medicine = await this.medicineEnumModel.findOne(res.medicineId);
+      res.time = await this.timeEnumModel.findOne(res.timeId);
+      return res;
+    }
   }
 
   /**

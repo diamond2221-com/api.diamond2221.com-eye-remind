@@ -1,3 +1,5 @@
+import { TimeEnum } from './time-enum';
+import { MedicineEnum } from './medicine-enum';
 import { EntityModel } from '@midwayjs/orm';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import { EIsDel, ERemindStatus } from '../enums/remind';
@@ -74,4 +76,7 @@ export class Remind {
     name: 'update_time',
   })
   public updateTime: Date;
+
+  public medicine?: MedicineEnum;
+  public time?: TimeEnum;
 }

@@ -64,8 +64,10 @@ export class RemindController {
   @Post('/set')
   @Validate()
   public async setRemind(@Body(ALL) body: RemindSetDTO) {
-    await this.remindService.setRemind(body);
-    return new ResponseMessage(EResponse['SUCCESS']);
+    return new ResponseMessage(
+      EResponse['SUCCESS'],
+      await this.remindService.setRemind(body)
+    );
   }
 
   @Post('/copy')
